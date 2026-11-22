@@ -44,7 +44,7 @@
         "count": 2,
         "area": 2,
         "parcel": "P1",
-        "active": true,
+        "active": false,
         "quota": 10,
         "grass": 0.8,
         "rate": 100,
