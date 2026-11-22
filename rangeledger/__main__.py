@@ -19,7 +19,7 @@ def run_fixture(db, path, allowed=None):
 
 def main(argv=None):
     p=argparse.ArgumentParser()
-    p.add_argument('command',choices=['init','demo','report']+[m.COMMAND for m in MODULES])
+    p.add_argument('command',choices=['init','demo','report','replay']+[m.COMMAND for m in MODULES])
     p.add_argument('--db',default='work.db')
     p.add_argument('--fixture')
     p.add_argument('--subject',default='case-1')
@@ -27,6 +27,14 @@ def main(argv=None):
     db=connect(args.db)
     if args.command=='init': out={'db':args.db,'module_file':module_file}
     elif args.command=='report': out=report(db,args.subject)
+    elif args.command=='replay':
+        records=evidence(db,args.subject)
+        computed={}
+        for module in MODULES:
+            for name,value,ids in module.decide(records): computed[name]={'result':value,'evidence_ids':sorted(set(ids))}
+        stored=report(db,args.subject)
+        mismatches={name:{'stored':stored.get(name),'recomputed':item} for name,item in computed.items() if not stored.get(name) or stored[name]['result']!=item['result'] or stored[name]['evidence_ids']!=item['evidence_ids']}
+        out={'match':bool(records) and not mismatches,'mismatches':mismatches,'evidence_count':len(records)}
     elif args.command=='demo':
         out={}
         for module in MODULES:
