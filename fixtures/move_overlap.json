@@ -1,0 +1,101 @@
+{
+  "events": [
+    {
+      "id": "rangeledger-herd-bad-revision",
+      "kind": "herd",
+      "subject": "case-1",
+      "event_time": 23,
+      "received_at": 123,
+      "data": {
+        "healthy": false,
+        "start": 40,
+        "end": 20,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": false,
+        "quota": 10,
+        "grass": 0.2,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.9,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S0",
+        "tags": [
+          "T1",
+          "T2"
+        ],
+        "isolated": true,
+        "delivered": true,
+        "disputed": true
+      }
+    },
+    {
+      "id": "rangeledger-movement-ok-revision",
+      "kind": "movement",
+      "subject": "case-1",
+      "event_time": 21,
+      "received_at": 121,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S1",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    },
+    {
+      "id": "rangeledger-quarantine-ok-revision",
+      "kind": "quarantine",
+      "subject": "case-1",
+      "event_time": 22,
+      "received_at": 122,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S2",
+        "tags": [
+          "T1",
+          "T2"
+        ],
+        "isolated": true
+      }
+    }
+  ]
+}

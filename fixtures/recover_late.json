@@ -1,0 +1,100 @@
+{
+  "events": [
+    {
+      "id": "rangeledger-vegetation_sample-bad-revision",
+      "kind": "vegetation_sample",
+      "subject": "case-1",
+      "event_time": 33,
+      "received_at": 133,
+      "data": {
+        "healthy": false,
+        "start": 40,
+        "end": 20,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": false,
+        "quota": 10,
+        "grass": 0.2,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.9,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S0",
+        "tags": [
+          "T1",
+          "T2"
+        ],
+        "isolated": true,
+        "delivered": true,
+        "disputed": true
+      }
+    },
+    {
+      "id": "rangeledger-rest_order-ok-revision",
+      "kind": "rest_order",
+      "subject": "case-1",
+      "event_time": 31,
+      "received_at": 131,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S1",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    },
+    {
+      "id": "rangeledger-compensation-ok-revision",
+      "kind": "compensation",
+      "subject": "case-1",
+      "event_time": 32,
+      "received_at": 132,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S2",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    }
+  ]
+}

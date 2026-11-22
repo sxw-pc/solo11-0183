@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "id": "rangeledger-herd-ok",
+      "kind": "herd",
+      "subject": "case-1",
+      "event_time": 20,
+      "received_at": 20,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S0",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    },
+    {
+      "id": "rangeledger-movement-ok",
+      "kind": "movement",
+      "subject": "case-1",
+      "event_time": 21,
+      "received_at": 21,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S1",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    },
+    {
+      "id": "rangeledger-quarantine-ok",
+      "kind": "quarantine",
+      "subject": "case-1",
+      "event_time": 22,
+      "received_at": 22,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S2",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    }
+  ]
+}

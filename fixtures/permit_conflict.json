@@ -1,0 +1,100 @@
+{
+  "events": [
+    {
+      "id": "rangeledger-pasture-bad-revision",
+      "kind": "pasture",
+      "subject": "case-1",
+      "event_time": 13,
+      "received_at": 113,
+      "data": {
+        "healthy": false,
+        "start": 40,
+        "end": 20,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": false,
+        "quota": 10,
+        "grass": 0.2,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.9,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S0",
+        "tags": [
+          "T1",
+          "T2"
+        ],
+        "isolated": true,
+        "delivered": true,
+        "disputed": true
+      }
+    },
+    {
+      "id": "rangeledger-permit-ok-revision",
+      "kind": "permit",
+      "subject": "case-1",
+      "event_time": 11,
+      "received_at": 111,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 1,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S1",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    },
+    {
+      "id": "rangeledger-allocation-ok-revision",
+      "kind": "allocation",
+      "subject": "case-1",
+      "event_time": 12,
+      "received_at": 112,
+      "data": {
+        "healthy": true,
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "area": 2,
+        "parcel": "P1",
+        "active": true,
+        "quota": 10,
+        "grass": 0.8,
+        "rate": 100,
+        "limit": 200,
+        "min_hours": 2,
+        "fee": 20,
+        "loss": 0.4,
+        "parcels": [
+          "P1"
+        ],
+        "sample": "S2",
+        "tags": [
+          "T1",
+          "T2"
+        ]
+      }
+    }
+  ]
+}
