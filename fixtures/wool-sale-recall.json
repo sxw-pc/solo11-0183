@@ -1,0 +1,154 @@
+{
+  "events": [
+    {
+      "id": "wool-t1",
+      "kind": "drug_treatment",
+      "subject": "case-wool-1",
+      "event_time": 3,
+      "received_at": 3,
+      "data": {
+        "treatment": "T1",
+        "flock": "H",
+        "day": 3,
+        "withdraw_days": 7,
+        "signed": true,
+        "vet": "V-1",
+        "note": "day-3 dosing, recorded on time"
+      }
+    },
+    {
+      "id": "wool-w40",
+      "kind": "wool_batch",
+      "subject": "case-wool-1",
+      "event_time": 11,
+      "received_at": 11,
+      "data": {
+        "batch": "W40",
+        "flock": "H",
+        "weight_kg": 40,
+        "shorn_day": 11
+      }
+    },
+    {
+      "id": "wool-r1",
+      "kind": "sale_receipt",
+      "subject": "case-wool-1",
+      "event_time": 11,
+      "received_at": 11,
+      "data": {
+        "receipt": "R1",
+        "doc": "sale",
+        "batch": "W40",
+        "buyer": "B",
+        "qty_kg": 40,
+        "amount": 4000,
+        "ship_day": 11,
+        "signed": true
+      }
+    },
+    {
+      "id": "wool-t2",
+      "kind": "drug_treatment",
+      "subject": "case-wool-1",
+      "event_time": 8,
+      "received_at": 12,
+      "data": {
+        "treatment": "T2",
+        "flock": "H",
+        "day": 8,
+        "withdraw_days": 7,
+        "signed": true,
+        "vet": "V-2",
+        "note": "actual day-8 dosing, original submitted late on day-12"
+      }
+    },
+    {
+      "id": "wool-c1",
+      "kind": "correction_link",
+      "subject": "case-wool-1",
+      "event_time": 12,
+      "received_at": 12,
+      "data": {
+        "link": "C1",
+        "treatment": "T2",
+        "batch": "W40",
+        "receipt": "R1",
+        "reason": "late_treatment"
+      }
+    }
+  ],
+  "routes": {
+    "buyer_return": [
+      {
+        "id": "wool-rt1",
+        "kind": "sale_receipt",
+        "subject": "case-wool-1",
+        "event_time": 13,
+        "received_at": 13,
+        "data": {
+          "receipt": "RT1",
+          "doc": "buyer_return",
+          "batch": "W40",
+          "qty_kg": 40,
+          "from": "B",
+          "to": "ranch_quarantine",
+          "reverses": "R1",
+          "amount": -4000,
+          "signed": true
+        }
+      }
+    ],
+    "disposal": [
+      {
+        "id": "wool-lab1",
+        "kind": "sale_receipt",
+        "subject": "case-wool-1",
+        "event_time": 13,
+        "received_at": 13,
+        "data": {
+          "receipt": "LAB-1",
+          "doc": "independent_test",
+          "batch": "W40",
+          "lab": "LAB-01",
+          "finding": "drug_residue",
+          "signed": true
+        }
+      },
+      {
+        "id": "wool-dp1",
+        "kind": "sale_receipt",
+        "subject": "case-wool-1",
+        "event_time": 13,
+        "received_at": 13,
+        "data": {
+          "receipt": "DP-1",
+          "doc": "disposal_permit",
+          "batch": "W40",
+          "non_food": true,
+          "signed": true,
+          "holder": "B"
+        }
+      },
+      {
+        "id": "wool-tr1",
+        "kind": "sale_receipt",
+        "subject": "case-wool-1",
+        "event_time": 14,
+        "received_at": 14,
+        "data": {
+          "receipt": "TR1",
+          "doc": "disposal_transfer",
+          "batch": "W40",
+          "qty_kg": 40,
+          "from": "B",
+          "to": "disposal_vendor",
+          "test": "LAB-1",
+          "permit": "DP-1",
+          "reverses": "R1",
+          "amount": -4000,
+          "signed": true
+        }
+      }
+    ]
+  }
+}
