@@ -1,4 +1,5 @@
 from .common import rows,latest,proof,pressure,capacity,night_hours
+from .track import analyze
 from pathlib import Path
 COMMAND='recovery';KINDS=['vegetation_sample','rest_order','compensation']
 NORMAL=str(Path(__file__).resolve().parent.parent/'fixtures/recover_ok.json')
@@ -10,9 +11,11 @@ def decide(ev):
     previous_active=max((o for o in orders if o['data'].get('active')),key=lambda x:x['event_time'],default=None)
     rechecked=not previous_active or any(s['event_time']>previous_active['event_time'] for s in rows(ev,'vegetation_sample'))
     total=sum(zones.values());open_state=grass>=0.5 and total<=cap and safe and not (rest and rest['data'].get('active')) and rechecked
-    breach_by_holder={}
+    analysis=analyze(ev)
+    tracked=analysis['tracked'] if analysis else set()
+    breach_by_holder=dict(analysis['night_by_holder']) if analysis else {}
     for m in moves:
-        if m['data'].get('outside'):
+        if m['data'].get('outside') and m['id'] not in tracked:
             holder=m['data'].get('holder','H1');breach_by_holder[holder]=breach_by_holder.get(holder,0)+night_hours(float(m['data'].get('start',0)),float(m['data'].get('end',0)))
     excess=max(0,total-cap);comp={}
     for holder,days in holder_days.items():
@@ -20,4 +23,5 @@ def decide(ev):
     clear=all(m['data'].get('end') is not None and (not rest or float(m['data']['end'])<=float(rest['data'].get('deadline',10**12))) for m in moves)
     state='重开' if open_state and clear else '清场中' if rest and rest['data'].get('active') else '待复核'
     ids=proof(rows(ev,'vegetation_sample'),moves,[rest,q]) or proof(ev)
+    if analysis: ids=sorted(set(ids)|set(analysis['evidence']))
     return [('植被恢复阈值判定','开放' if open_state else '休牧',ids),('超载补偿分摊',comp,ids),('休牧令执行与重开',state,ids)]

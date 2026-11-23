@@ -1,0 +1,107 @@
+{
+  "events": [
+    {
+      "id": "permit-track",
+      "kind": "permit",
+      "subject": "case-track",
+      "event_time": 20,
+      "received_at": 20,
+      "data": {
+        "holder": "H1",
+        "quota": 10,
+        "start": 20,
+        "end": 24
+      }
+    },
+    {
+      "id": "fence-track-z1",
+      "kind": "fence",
+      "subject": "case-track",
+      "event_time": 18,
+      "received_at": 18,
+      "data": {
+        "zone": "Z1",
+        "eps": 0.5,
+        "polygon": [
+          [
+            0,
+            0
+          ],
+          [
+            10,
+            0
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            0,
+            10
+          ]
+        ],
+        "gates": [
+          {
+            "name": "E",
+            "point": [
+              10,
+              5
+            ]
+          },
+          {
+            "name": "S",
+            "point": [
+              5,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "move-track-ok",
+      "kind": "movement",
+      "subject": "case-track",
+      "event_time": 21,
+      "received_at": 21,
+      "data": {
+        "holder": "H1",
+        "herd": "herd-1",
+        "zone": "Z1",
+        "start": 21,
+        "end": 23,
+        "count": 1
+      }
+    },
+    {
+      "id": "gps-track-ok",
+      "kind": "gps_package",
+      "subject": "case-track",
+      "event_time": 23,
+      "received_at": 23,
+      "data": {
+        "holder": "H1",
+        "movement": "move-track-ok",
+        "device": "collar-7",
+        "fixes": [
+          {
+            "t": 21,
+            "x": 4,
+            "y": 4
+          },
+          {
+            "t": 22,
+            "x": 6,
+            "y": 6
+          },
+          {
+            "t": 23,
+            "x": 4,
+            "y": 4
+          }
+        ],
+        "signature": "3c42d90f02669fece252ccd2716fbe81e148c9572f23e4dbef9fd9ba3b38e1f7"
+      }
+    }
+  ]
+}
