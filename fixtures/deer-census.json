@@ -1,0 +1,67 @@
+{
+  "events": [
+    {
+      "id": "census-frame-a-0800",
+      "kind": "camera_frame",
+      "subject": "deer-census-1",
+      "event_time": 480,
+      "received_at": 480,
+      "data": {
+        "camera": "A",
+        "captured_at": 480,
+        "photo": "ph-A-0800",
+        "overlaps": ["A"],
+        "detections": [
+          {"label": "a1", "features": {"ear_spot": "E7", "tail_stripe": "T1"}},
+          {"label": "a2", "features": {"tail_stripe": "T3"}}
+        ],
+        "signature": "3f026d90483b982b"
+      }
+    },
+    {
+      "id": "census-frame-b-0804",
+      "kind": "camera_frame",
+      "subject": "deer-census-1",
+      "event_time": 484,
+      "received_at": 484,
+      "data": {
+        "camera": "B",
+        "captured_at": 484,
+        "photo": "ph-B-0804",
+        "overlaps": ["B"],
+        "detections": [
+          {"label": "b1", "features": {"ear_spot": "E7", "tail_stripe": "T9"}},
+          {"label": "b2", "features": {"tail_stripe": "T3"}}
+        ],
+        "signature": "b3f1b6bacb94c5b7"
+      }
+    },
+    {
+      "id": "census-edge-earspot",
+      "kind": "reid_edge",
+      "subject": "deer-census-1",
+      "event_time": 490,
+      "received_at": 490,
+      "data": {
+        "left": "census-frame-a-0800#a1",
+        "right": "census-frame-b-0804#b1",
+        "status": "confirmed",
+        "basis": "耳斑特征",
+        "reviewer": "field-team"
+      }
+    },
+    {
+      "id": "census-edge-tail",
+      "kind": "reid_edge",
+      "subject": "deer-census-1",
+      "event_time": 491,
+      "received_at": 491,
+      "data": {
+        "left": "census-frame-a-0800#a2",
+        "right": "census-frame-b-0804#b2",
+        "status": "pending",
+        "basis": "尾纹相似"
+      }
+    }
+  ]
+}
