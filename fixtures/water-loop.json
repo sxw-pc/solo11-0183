@@ -1,0 +1,598 @@
+{
+  "network": {
+    "external_intake": 100,
+    "branch_a": 40,
+    "branch_b": 50,
+    "direct_storage": 5,
+    "main_leak": 5,
+    "b_drunk": 30,
+    "b_return": 20,
+    "filter_to_reservoir": 18,
+    "filter_loss": 2,
+    "expected": {
+      "consumed_a": 40,
+      "consumed_b": 30,
+      "storage": 23,
+      "leakage": 7,
+      "total": 100
+    }
+  },
+  "events": [
+    {
+      "id": "pipe-e-intake",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 1,
+      "received_at": 1,
+      "data": {
+        "edge_id": "e-intake",
+        "from": "source",
+        "to": "header",
+        "meter_id": "M-IN",
+        "role": "intake",
+        "sig": "b14e1044ec94e475d5f16ddc64c1654f9017e0c092902ecf5edaa90e5918bf52"
+      }
+    },
+    {
+      "id": "pipe-e-a",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 2,
+      "received_at": 2,
+      "data": {
+        "edge_id": "e-a",
+        "from": "header",
+        "to": "drink-a",
+        "meter_id": "M-A",
+        "role": "consumption",
+        "holder": "A",
+        "sig": "e3ee13fb67ea55c4fa4bfe6b586a630d682e0781b615687a12fef2b6324c39c8"
+      }
+    },
+    {
+      "id": "pipe-e-branch-b",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 3,
+      "received_at": 3,
+      "data": {
+        "edge_id": "e-branch-b",
+        "from": "header",
+        "to": "junction-b",
+        "meter_id": "M-BR",
+        "role": "branch",
+        "holder": "B",
+        "sig": "07e409f8bca825c286d9a9c67dd4b2ad9b5cd950d83fc18e174a4d9c6e5cf42a"
+      }
+    },
+    {
+      "id": "pipe-e-b-drink",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 4,
+      "received_at": 4,
+      "data": {
+        "edge_id": "e-b-drink",
+        "from": "junction-b",
+        "to": "drink-b",
+        "meter_id": "M-BD",
+        "role": "consumption",
+        "holder": "B",
+        "sig": "b3f3c420bc454f0dd30a4c50ac80c5c875f80800248d7db831dc8a2d3148eac7"
+      }
+    },
+    {
+      "id": "pipe-e-return",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 5,
+      "received_at": 5,
+      "data": {
+        "edge_id": "e-return",
+        "from": "junction-b",
+        "to": "filter",
+        "meter_id": "M-RET",
+        "role": "return",
+        "holder": "B",
+        "sig": "27d8a4484852eddd0bfea633d4feece35bf7f8a12fcca072c749ef2f8fde561b"
+      }
+    },
+    {
+      "id": "pipe-e-direct",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 6,
+      "received_at": 6,
+      "data": {
+        "edge_id": "e-direct",
+        "from": "header",
+        "to": "reservoir",
+        "meter_id": "M-DIR",
+        "role": "direct_storage",
+        "sig": "69b74575db6e41d167f963e0935ff092f40281373390c7c4492364a07e24f96f"
+      }
+    },
+    {
+      "id": "pipe-e-mleak",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 7,
+      "received_at": 7,
+      "data": {
+        "edge_id": "e-mleak",
+        "from": "header",
+        "to": "ground",
+        "meter_id": "M-ML",
+        "role": "main_leak",
+        "sig": "f67a7923733da90a5f5be2057f5d05a37ebf7703d66c126fc97f609e60dd1416"
+      }
+    },
+    {
+      "id": "pipe-e-fstore",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 8,
+      "received_at": 8,
+      "data": {
+        "edge_id": "e-fstore",
+        "from": "filter",
+        "to": "reservoir",
+        "meter_id": "M-FO",
+        "role": "filter_storage",
+        "sig": "4305d8cd1bac97540c35b3a568c0a9ab18ecccb5ed58c14f0d58eba2c4843b84"
+      }
+    },
+    {
+      "id": "pipe-e-floss",
+      "kind": "pipe",
+      "subject": "water-loop-1",
+      "event_time": 9,
+      "received_at": 9,
+      "data": {
+        "edge_id": "e-floss",
+        "from": "filter",
+        "to": "ground",
+        "meter_id": "M-FL",
+        "role": "filter_loss",
+        "sig": "90280ce03b7f7a2e0ae70288d73d160b6be6e11e6db3842b9fe1c04526bfe3b7"
+      }
+    },
+    {
+      "id": "valve-e-return-open-1",
+      "kind": "valve_action",
+      "subject": "water-loop-1",
+      "event_time": 20,
+      "received_at": 20,
+      "data": {
+        "edge_id": "e-return",
+        "open": false,
+        "sig": "6e0658de451a30ff438b2daacc214efccaa99b77ad25ffc784c0fb5823feb71d"
+      }
+    },
+    {
+      "id": "valve-e-return-open-2",
+      "kind": "valve_action",
+      "subject": "water-loop-1",
+      "event_time": 21,
+      "received_at": 21,
+      "data": {
+        "edge_id": "e-return",
+        "open": true,
+        "sig": "99c95e572d64605e3a98f28d0081a93e4f4feee774ac9d44f66c2433645ca1c3"
+      }
+    },
+    {
+      "id": "m-IN-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-IN",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "3b53d1c12248595a187ed356ecfd8d4685fffbb341b592df141362c5f107e344"
+      }
+    },
+    {
+      "id": "m-IN-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-IN",
+        "reading": 60,
+        "prior_reading": 0,
+        "sig": "b8bb5c53fec2ea822460bd95ab50e33ca4621e02a19225dd2bc4f983caae43c1"
+      }
+    },
+    {
+      "id": "m-IN-r2",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 32,
+      "received_at": 32,
+      "data": {
+        "meter_id": "M-IN",
+        "reading": 100,
+        "prior_reading": 60,
+        "sig": "a952853d5f1eda6250412e45bf580d73a650b74daec0795ffeeeeca52bcef73f"
+      }
+    },
+    {
+      "id": "m-A-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-A",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "3ab6caa6cbbd5ce4e9f8fd1ea0cca30ce51ad97d24552fa201395fb77a2118e3"
+      }
+    },
+    {
+      "id": "m-A-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-A",
+        "reading": 40,
+        "prior_reading": 0,
+        "sig": "c47b52e1022da5529db5dad522ea75a66cf110f90676bcb8c4311db0623f85d8"
+      }
+    },
+    {
+      "id": "m-BR-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-BR",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "adf85f219f3865c822b2de412affdeb7c0ea3e0dcd83568a6f77a0b95b232595"
+      }
+    },
+    {
+      "id": "m-BR-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-BR",
+        "reading": 25,
+        "prior_reading": 0,
+        "sig": "a5d023891c9c9d6500917f4526b793fb2cfb642d7f193236ba3bfb1149bee750"
+      }
+    },
+    {
+      "id": "m-BR-r2",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 32,
+      "received_at": 32,
+      "data": {
+        "meter_id": "M-BR",
+        "reading": 50,
+        "prior_reading": 25,
+        "sig": "0808c7d209b74fe209d8a9df85bac69380a1422bc1e51321c6180b2521f15229"
+      }
+    },
+    {
+      "id": "m-BD-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-BD",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "340416eb88a525032152fd261c7af50346a2c329a26a8d7da337a47d0f56a33f"
+      }
+    },
+    {
+      "id": "m-BD-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-BD",
+        "reading": 12,
+        "prior_reading": 0,
+        "sig": "8a975a76d9bf39f85b72e16f6ffb6f467adef1972ca064e7d6f2790aacd7c1d8"
+      }
+    },
+    {
+      "id": "m-BD-r2",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 32,
+      "received_at": 32,
+      "data": {
+        "meter_id": "M-BD",
+        "reading": 30,
+        "prior_reading": 12,
+        "sig": "4c5faf9978a8ca41667ba970d16a012040653887bd9727b0d6a124e34e86567d"
+      }
+    },
+    {
+      "id": "m-RET-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-RET",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "87b64272ffac513783a3378a17c6185e56c5365975083aff70c01bc03a6747e2"
+      }
+    },
+    {
+      "id": "m-RET-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-RET",
+        "reading": 20,
+        "prior_reading": 0,
+        "sig": "3c6ce5689ae20cf15510ad7ac7bbbd38df8b887951babcb20e8483654258aa5f"
+      }
+    },
+    {
+      "id": "m-DIR-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-DIR",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "6a4d7afe16b5d872307cc6fa956d560e910c0194260609ccfa55053b6f95b67e"
+      }
+    },
+    {
+      "id": "m-DIR-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-DIR",
+        "reading": 5,
+        "prior_reading": 0,
+        "sig": "c0bd1aaac5becafb846b537c77e1a9eafd6ce5eb57cbd3e8672c1ed28014cf9c"
+      }
+    },
+    {
+      "id": "m-ML-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-ML",
+        "reading": 5,
+        "prior_reading": 0,
+        "sig": "01bcc1fad2c54e0c10467896a29ab5561762ca6a0dd05122746a27b56673f107"
+      }
+    },
+    {
+      "id": "m-ML-replace",
+      "kind": "meter_replacement",
+      "subject": "water-loop-1",
+      "event_time": 33,
+      "received_at": 33,
+      "data": {
+        "meter_id": "M-ML",
+        "prior_reading": 0,
+        "reason": "offline-replacement",
+        "sig": "296d0966db372e86281a7d7833393b031e39f318fc28b0517dc7b9a0cd086fd0"
+      }
+    },
+    {
+      "id": "m-ML-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 34,
+      "received_at": 34,
+      "data": {
+        "meter_id": "M-ML",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "f1b489da98393f09c7c125efd2e1bdad2c913e2db7edb11f6f4ef7b9077cec56"
+      }
+    },
+    {
+      "id": "m-ML-r1-dup",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 34,
+      "received_at": 40,
+      "data": {
+        "meter_id": "M-ML",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "721d063326f552e758a98af699e990e7c4e9f22f0812854ff6fc0af0dde21a79"
+      }
+    },
+    {
+      "id": "m-FO-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-FO",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "6f0bbda4701f605ac85b6dae438aef4229387a775dfa3ccda85f5148a05412c4"
+      }
+    },
+    {
+      "id": "cal-M-FO-1",
+      "kind": "calibration",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-FO",
+        "factor": 1.0,
+        "note": "verified at site",
+        "sig": "594f9f403130c7f43490de87f183372def768a15dd52ce3397a25335b64b6ff4"
+      }
+    },
+    {
+      "id": "m-FO-replace",
+      "kind": "meter_replacement",
+      "subject": "water-loop-1",
+      "event_time": 32,
+      "received_at": 32,
+      "data": {
+        "meter_id": "M-FO",
+        "prior_reading": 0,
+        "sig": "2286d859020d239a3a5886a76134af42eb950ee8507253535b5a57a275fc6c00"
+      }
+    },
+    {
+      "id": "m-FO-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 33,
+      "received_at": 33,
+      "data": {
+        "meter_id": "M-FO",
+        "reading": 9,
+        "prior_reading": 0,
+        "sig": "45a6c26cc07ba3fc8bb352b94654fcf4c6c163c75194189ce34937ce650422a9"
+      }
+    },
+    {
+      "id": "m-FO-r2",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 34,
+      "received_at": 34,
+      "data": {
+        "meter_id": "M-FO",
+        "reading": 18,
+        "prior_reading": 9,
+        "sig": "e40d5467e44462514ed64bbeaa3132db3be10d2ab455a797226fdf177e330905"
+      }
+    },
+    {
+      "id": "m-FL-r0",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "meter_id": "M-FL",
+        "reading": 0,
+        "prior_reading": 0,
+        "sig": "f08207a6c423ad2240511e6ccb54d854ee3daf97746926b73d62c3cc7891d752"
+      }
+    },
+    {
+      "id": "cal-M-FL-1",
+      "kind": "calibration",
+      "subject": "water-loop-1",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "meter_id": "M-FL",
+        "factor": 0.9,
+        "note": "meter runs fast, field calibration",
+        "sig": "47db21fb674a8c708719014c7e62e43e0b7405f55af83eb83187783a6bf4278e"
+      }
+    },
+    {
+      "id": "m-FL-r1",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 32,
+      "received_at": 32,
+      "data": {
+        "meter_id": "M-FL",
+        "reading": 1.1111111111111112,
+        "prior_reading": 0,
+        "sig": "8b61683fa8a76b68f3fbb1d7362bdfb1ddef7b4dc0989187194a55b35dcb59a0"
+      }
+    },
+    {
+      "id": "m-FL-r2",
+      "kind": "meter_reading",
+      "subject": "water-loop-1",
+      "event_time": 33,
+      "received_at": 33,
+      "data": {
+        "meter_id": "M-FL",
+        "reading": 2.2222222222222223,
+        "prior_reading": 1.1111111111111112,
+        "sig": "ab19189e0b8742d26dba87ff3d52fc9beb830b998a356274334ac458763daf69"
+      }
+    },
+    {
+      "id": "level-reservoir-1",
+      "kind": "reservoir_level",
+      "subject": "water-loop-1",
+      "event_time": 50,
+      "received_at": 50,
+      "data": {
+        "node": "reservoir",
+        "level_before": 5.0,
+        "level_after": 7.3,
+        "area": 10,
+        "sig": "8bb209af275436b14dc3f95a70c6f2d4a7259737d180f3628595c3ca0a612cd9"
+      }
+    },
+    {
+      "id": "signoff-infra-1",
+      "kind": "liability_signoff",
+      "subject": "water-loop-1",
+      "event_time": 60,
+      "received_at": 60,
+      "data": {
+        "protocol": "infrastructure",
+        "active": true,
+        "signers": [
+          "manager",
+          "A",
+          "B"
+        ],
+        "note": "管理方承担全部物理漏损的水费",
+        "sig": "c0dfa0a9c8c8bc1f57c84acc7e223ea46f48cb5dd4c79cd5d675879faaa48bb0"
+      }
+    },
+    {
+      "id": "signoff-joint-1",
+      "kind": "liability_signoff",
+      "subject": "water-loop-1",
+      "event_time": 61,
+      "received_at": 61,
+      "data": {
+        "protocol": "joint_stewardship",
+        "active": true,
+        "signers": [
+          "manager",
+          "A",
+          "B"
+        ],
+        "note": "漏损按真实饮用量40:30共同分摊",
+        "sig": "0e054d011353bd2db10e068bfd88d5991bde1e712617baf9dfca89a7a8b021ea"
+      }
+    }
+  ]
+}
