@@ -1,0 +1,208 @@
+{
+  "subject": "studbook-case-1",
+  "threshold": [13, 100],
+  "expected": {
+    "baseline_inbreeding_X": [1, 8],
+    "baseline_AB": [9, 64],
+    "reviewed_AB": [1, 8],
+    "AC": [0, 1]
+  },
+  "events": [
+    {
+      "id": "pedigree-G",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 10,
+      "received_at": 40,
+      "data": {
+        "animal_id": "G",
+        "born": 10,
+        "aliases": ["G-FOUNDER", "公牛G"]
+      }
+    },
+    {
+      "id": "pedigree-H",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 11,
+      "received_at": 40,
+      "data": {
+        "animal_id": "H",
+        "born": 11,
+        "aliases": ["H-FOUNDER"]
+      }
+    },
+    {
+      "id": "pedigree-J",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 12,
+      "received_at": 40,
+      "data": {
+        "animal_id": "J",
+        "born": 12,
+        "aliases": ["J-FOUNDER"]
+      }
+    },
+    {
+      "id": "pedigree-K",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 13,
+      "received_at": 40,
+      "data": {
+        "animal_id": "K",
+        "born": 13,
+        "aliases": ["K-FOUNDER"]
+      }
+    },
+    {
+      "id": "pedigree-L",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 14,
+      "received_at": 40,
+      "data": {
+        "animal_id": "L",
+        "born": 14,
+        "aliases": ["L-FOUNDER"]
+      }
+    },
+    {
+      "id": "pedigree-P",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 20,
+      "received_at": 40,
+      "data": {
+        "animal_id": "P",
+        "sire": "G",
+        "dam": "H",
+        "born": 20,
+        "aliases": ["P-HALF"]
+      }
+    },
+    {
+      "id": "pedigree-Q",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 21,
+      "received_at": 40,
+      "data": {
+        "animal_id": "Q",
+        "sire": "G",
+        "dam": "J",
+        "born": 21,
+        "aliases": ["Q-HALF", "母牛Q"]
+      }
+    },
+    {
+      "id": "pedigree-X",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 30,
+      "received_at": 40,
+      "data": {
+        "animal_id": "X",
+        "sire": "P",
+        "dam": "Q",
+        "born": 30,
+        "aliases": ["X-INBRED"]
+      }
+    },
+    {
+      "id": "pedigree-A",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 40,
+      "received_at": 50,
+      "data": {
+        "animal_id": "A",
+        "sire": "X",
+        "dam": "K",
+        "born": 40,
+        "aliases": ["母畜A", "TAG-A"]
+      }
+    },
+    {
+      "id": "pedigree-B",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 41,
+      "received_at": 50,
+      "data": {
+        "animal_id": "B",
+        "sire": "X",
+        "dam": "L",
+        "born": 41,
+        "aliases": ["公畜B", "TAG-B"]
+      }
+    },
+    {
+      "id": "pedigree-N",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 42,
+      "received_at": 50,
+      "data": {
+        "animal_id": "N",
+        "born": 42,
+        "aliases": ["N-FOUNDER"]
+      }
+    },
+    {
+      "id": "pedigree-O",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 43,
+      "received_at": 50,
+      "data": {
+        "animal_id": "O",
+        "born": 43,
+        "aliases": ["O-FOUNDER"]
+      }
+    },
+    {
+      "id": "pedigree-C",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 44,
+      "received_at": 50,
+      "data": {
+        "animal_id": "C",
+        "sire": "N",
+        "dam": "O",
+        "born": 44,
+        "aliases": ["改配C", "TAG-C"]
+      }
+    },
+    {
+      "id": "pedigree-M",
+      "kind": "pedigree",
+      "subject": "studbook-case-1",
+      "event_time": 60,
+      "received_at": 70,
+      "data": {
+        "animal_id": "M",
+        "born": 15,
+        "scenario": "parentage_correction",
+        "aliases": ["M-FOUNDER", "基因复核新父本"]
+      }
+    },
+    {
+      "id": "review-Q-sire-M",
+      "kind": "parentage_review",
+      "subject": "studbook-case-1",
+      "event_time": 61,
+      "received_at": 70,
+      "data": {
+        "scenario": "parentage_correction",
+        "child": "Q",
+        "role": "sire",
+        "old_parent": "G",
+        "new_parent": "M",
+        "rationale": "签名基因亲权复核：Q 的父本为互不相关创始个体 M，原登记 G 更正"
+      }
+    }
+  ]
+}

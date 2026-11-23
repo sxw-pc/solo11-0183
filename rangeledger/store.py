@@ -1,6 +1,16 @@
-ENTITIES=['pasture', 'permit', 'allocation', 'herd', 'movement', 'quarantine', 'vegetation_sample', 'rest_order', 'compensation']
+ENTITIES=['pasture', 'permit', 'allocation', 'herd', 'movement', 'quarantine', 'vegetation_sample', 'rest_order', 'compensation', 'pedigree', 'parentage_review']
 import json, sqlite3
 from pathlib import Path
+
+from .breeding import serialize_result
+
+
+def _json_default(obj):
+    # Fraction 已由 serialize_result 预处理，这里仅兜底其它可序列化对象
+    if hasattr(obj, 'isoformat'):
+        return obj.isoformat()
+    raise TypeError(f'不可落库的对象类型 {type(obj)!r}')
+
 
 def connect(path):
     db=sqlite3.connect(path)
@@ -9,6 +19,8 @@ def connect(path):
     db.execute('CREATE TABLE IF NOT EXISTS evidence (id TEXT PRIMARY KEY, kind TEXT NOT NULL, subject TEXT NOT NULL, event_time INTEGER NOT NULL, received_at INTEGER NOT NULL, payload TEXT NOT NULL)')
     db.execute('CREATE TABLE IF NOT EXISTS decision (subject TEXT NOT NULL, surface TEXT NOT NULL, version INTEGER NOT NULL, result TEXT NOT NULL, evidence_ids TEXT NOT NULL, PRIMARY KEY(subject,surface,version))')
     db.execute('CREATE TABLE IF NOT EXISTS rejection (id TEXT PRIMARY KEY, reason TEXT NOT NULL, payload TEXT NOT NULL)')
+    db.execute('CREATE TABLE IF NOT EXISTS pedigree_snapshot (subject TEXT NOT NULL, version INTEGER NOT NULL, snapshot_id TEXT NOT NULL, parent_snapshot_id TEXT, rationale TEXT NOT NULL, event_time INTEGER NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(subject,version))')
+    db.execute('CREATE TABLE IF NOT EXISTS breeding_decision (subject TEXT NOT NULL, pair_id TEXT NOT NULL, version INTEGER NOT NULL, result TEXT NOT NULL, evidence_ids TEXT NOT NULL, PRIMARY KEY(subject,pair_id,version))')
     for kind in ENTITIES:
         db.execute(f'CREATE TABLE IF NOT EXISTS {kind} (id TEXT PRIMARY KEY REFERENCES evidence(id), subject TEXT NOT NULL, event_time INTEGER NOT NULL, payload TEXT NOT NULL)')
     db.commit()
@@ -43,3 +55,50 @@ def save_decisions(db,subject,results):
 def report(db,subject):
     rows=db.execute('SELECT d.* FROM decision d JOIN (SELECT surface,MAX(version) v FROM decision WHERE subject=? GROUP BY surface) x ON d.surface=x.surface AND d.version=x.v WHERE d.subject=? ORDER BY d.surface',(subject,subject)).fetchall()
     return {r['surface']:dict(version=r['version'],result=json.loads(r['result']),evidence_ids=json.loads(r['evidence_ids'])) for r in rows}
+
+def save_pedigree_snapshot(db,subject,snapshot,event_time):
+    """保存一版祖谱 DAG 快照。同 (subject,version) 重复内容幂等，冲突报错。"""
+    payload=json.dumps(snapshot,ensure_ascii=False,sort_keys=True,default=_json_default)
+    old=db.execute('SELECT payload FROM pedigree_snapshot WHERE subject=? AND version=?',(subject,snapshot['version'])).fetchone()
+    if old:
+        if old['payload']==payload: return snapshot['version']
+        raise ValueError(f"祖谱快照 {subject} v{snapshot['version']} 内容冲突，版本不可覆写")
+    db.execute('INSERT INTO pedigree_snapshot VALUES (?,?,?,?,?,?,?)',(
+        subject,snapshot['version'],snapshot['snapshot_id'],
+        snapshot.get('parent_snapshot_id'),snapshot.get('rationale',''),
+        int(event_time),payload))
+    return snapshot['version']
+
+def pedigree_versions(db,subject):
+    """按版本号返回全部祖谱快照，旧版永远可追溯。"""
+    rows=db.execute('SELECT * FROM pedigree_snapshot WHERE subject=? ORDER BY version',(subject,)).fetchall()
+    return [dict(version=r['version'],snapshot_id=r['snapshot_id'],
+                 parent_snapshot_id=r['parent_snapshot_id'],
+                 rationale=r['rationale'],event_time=r['event_time'],
+                 snapshot=json.loads(r['payload'])) for r in rows]
+
+def latest_pedigree_snapshot(db,subject):
+    rows=pedigree_versions(db,subject)
+    return rows[-1] if rows else None
+
+def save_breeding_decision(db,subject,result):
+    """保存一条配种签发/拒签决定；内容与证据完全相同则幂等跳过。"""
+    pair_id='x'.join(result['pair'])
+    value=json.dumps(serialize_result(result),ensure_ascii=False,sort_keys=True,default=_json_default)
+    proof=json.dumps(sorted(set(result.get('evidence_ids',[]))),ensure_ascii=False)
+    old=db.execute('SELECT version,result,evidence_ids FROM breeding_decision WHERE subject=? AND pair_id=? ORDER BY version DESC LIMIT 1',(subject,pair_id)).fetchone()
+    if old and old['result']==value and old['evidence_ids']==proof:
+        return old['version']
+    version=1 if old is None else old['version']+1
+    db.execute('INSERT INTO breeding_decision VALUES (?,?,?,?,?)',(subject,pair_id,version,value,proof))
+    return version
+
+def breeding_history(db,subject,pair_id=None):
+    """返回配种决定的完整版本链（含被更正的旧签发计算）。"""
+    if pair_id is None:
+        rows=db.execute('SELECT * FROM breeding_decision WHERE subject=? ORDER BY pair_id,version',(subject,)).fetchall()
+    else:
+        rows=db.execute('SELECT * FROM breeding_decision WHERE subject=? AND pair_id=? ORDER BY version',(subject,pair_id)).fetchall()
+    return [dict(pair_id=r['pair_id'],version=r['version'],
+                 result=json.loads(r['result']),
+                 evidence_ids=json.loads(r['evidence_ids'])) for r in rows]
