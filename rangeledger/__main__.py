@@ -2,6 +2,14 @@ import argparse, json, sys
 from . import __file__ as module_file
 from .store import connect, ingest, evidence, save_decisions, report
 from . import MODULES
+from . import schedule
+
+def _next_alloc_version(db, subject):
+    found = db.execute(
+        'SELECT m.payload FROM movement m JOIN evidence e ON e.id=m.id WHERE e.subject=?',
+        (subject,)).fetchall()
+    versions = [json.loads(r['payload']).get('alloc_version', 0) for r in found]
+    return max(versions, default=0) + 1
 
 def run_fixture(db, path, allowed=None):
     events=json.loads(__import__('pathlib').Path(path).read_text(encoding='utf-8'))['events']
@@ -15,6 +23,14 @@ def run_fixture(db, path, allowed=None):
             results=[]
             for module in MODULES: results.extend(module.decide(records))
             save_decisions(db,subject,results)
+            # 含预约的案例：把当班分配表投影成 movement，再经三入口复核落库。
+            if any(e['kind']=='booking' for e in records):
+                version=_next_alloc_version(db,subject)
+                for projected in schedule.projected_movements(records,version):
+                    ingest(db,projected)
+                records=evidence(db,subject)
+                _,triples=schedule.adjudicate(records,version)
+                save_decisions(db,subject,triples)
     return {s:report(db,s) for s in sorted(subjects)}
 
 def main(argv=None):

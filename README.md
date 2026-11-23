@@ -11,7 +11,16 @@ python -m rangeledger demo --db work.db
 python -m unittest discover -s tests -v
 ```
 
-命令：permit, movement, recovery。每个命令通过 `--fixture` 读取单一子系统的 JSON；`demo` 依次执行正常样例。每项报告列证据 ID 和决定版本。
+命令：permit, movement, recovery, schedule。每个命令通过 `--fixture` 读取单一子系统的 JSON；`demo` 依次执行正常样例。每项报告列证据 ID 和决定版本。
+
+## 跨牧户预约的全局分配（schedule）
+
+旱季多牧户同窗预约时，单条准入回执不足以放行；`schedule` 把离线预约清单（`booking`）、每区草量与容量快照（`vegetation_sample`/`zone_capacity`）、群级禁行边界（`boundary`）和许可签认（`permit`）汇成可审计的当班全局分配表：
+
+- 受理台账按 `received_at` 回放，重复预约、同群跨区冲突、先到取消、时区折返与已入场后改期均留痕（异常写入 `rejection` 表，历史版本不删除）。
+- 局部贪心按申请先后把每群派到第一处同窗有余量的草区；全局回溯在同一组完整输入上搜索让全部预约落地的交换方案。合成案例中贪心只放甲群、交换方案把甲群换到 Z2、乙群留 Z1，两群各占 4 动物小时。
+- 签认协议决定可交换性：仅签时间未锁区时可交换；牧户与防疫员双签锁区当天禁止自动转签，被阻挡牧户进入“待改期”，不伪造他区许可，禁行依据写入被阻挡约束台账。
+- 放行结果投影为带 `alloc_version`、来源预约与来源许可的 `movement` 事件，再沿 permit→movement→recovery 复核许可期限、分区压力与恢复开放状态；草量补录晚到只生成新决定版本，旧的未分配决定不会被改写成已入场事实。
 
 
 ## 配额、占用与恢复语义

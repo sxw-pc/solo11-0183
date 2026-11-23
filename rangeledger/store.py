@@ -1,4 +1,4 @@
-ENTITIES=['pasture', 'permit', 'allocation', 'herd', 'movement', 'quarantine', 'vegetation_sample', 'rest_order', 'compensation']
+ENTITIES=['pasture', 'permit', 'allocation', 'herd', 'movement', 'quarantine', 'vegetation_sample', 'rest_order', 'compensation', 'booking', 'zone_capacity', 'boundary']
 import json, sqlite3
 from pathlib import Path
 
@@ -43,3 +43,19 @@ def save_decisions(db,subject,results):
 def report(db,subject):
     rows=db.execute('SELECT d.* FROM decision d JOIN (SELECT surface,MAX(version) v FROM decision WHERE subject=? GROUP BY surface) x ON d.surface=x.surface AND d.version=x.v WHERE d.subject=? ORDER BY d.surface',(subject,subject)).fetchall()
     return {r['surface']:dict(version=r['version'],result=json.loads(r['result']),evidence_ids=json.loads(r['evidence_ids'])) for r in rows}
+
+def report_history(db,subject,surface=None):
+    q='SELECT subject,surface,version,result,evidence_ids FROM decision WHERE subject=?'
+    args=[subject]
+    if surface: q+=' AND surface=?';args.append(surface)
+    q+=' ORDER BY surface,version'
+    return [dict(subject=r['subject'],surface=r['surface'],version=r['version'],result=json.loads(r['result']),evidence_ids=json.loads(r['evidence_ids'])) for r in db.execute(q,args)]
+
+def log_rejection(db,rid,reason,payload):
+    body=json.dumps(payload,ensure_ascii=False,sort_keys=True)
+    old=db.execute('SELECT reason,payload FROM rejection WHERE id=?',(rid,)).fetchone()
+    if old:
+        if old['reason']==reason and old['payload']==body: return False
+        raise ValueError('conflicting rejection id '+rid)
+    db.execute('INSERT INTO rejection VALUES (?,?,?)',(rid,reason,body))
+    return True

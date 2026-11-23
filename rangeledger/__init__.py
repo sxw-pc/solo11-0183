@@ -1,2 +1,2 @@
-from . import permit, movement, recovery
-MODULES=(permit, movement, recovery,)
+from . import permit, movement, recovery, schedule
+MODULES=(permit, movement, recovery, schedule,)

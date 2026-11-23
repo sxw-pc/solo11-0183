@@ -1,0 +1,211 @@
+{
+  "case": "synthetic-dry-season-dual-herd-locked",
+  "note": "合成案例，非原仓 fixture：甲群A的Z1已由牧户和防疫员双签锁区，当天不允许自动转签，乙群B须待改期",
+  "events": [
+    {
+      "id": "synth-locked-pasture-dry",
+      "kind": "pasture",
+      "subject": "dry-season-locked",
+      "event_time": 1,
+      "received_at": 1,
+      "data": {
+        "parcels": [
+          "Z1",
+          "Z2"
+        ],
+        "corridor_exclusive": true,
+        "note": "两区之间通道不能同窗共享"
+      }
+    },
+    {
+      "id": "synth-locked-permit-A-locked",
+      "kind": "permit",
+      "subject": "dry-season-locked",
+      "event_time": 10,
+      "received_at": 10,
+      "data": {
+        "herd": "A",
+        "holder": "HA",
+        "start": 1,
+        "end": 3,
+        "quota": 10,
+        "zones": [
+          "Z1",
+          "Z2"
+        ],
+        "signatures": [
+          "holder",
+          "vet"
+        ],
+        "locked_zone": "Z1",
+        "note": "甲群Z1双签锁区，不允许自动转签"
+      }
+    },
+    {
+      "id": "synth-locked-permit-B-time-only",
+      "kind": "permit",
+      "subject": "dry-season-locked",
+      "event_time": 11,
+      "received_at": 11,
+      "data": {
+        "herd": "B",
+        "holder": "HB",
+        "start": 1,
+        "end": 3,
+        "quota": 10,
+        "zones": [
+          "Z1"
+        ],
+        "signatures": [
+          "holder"
+        ],
+        "locked_zone": null
+      }
+    },
+    {
+      "id": "synth-locked-herd-A",
+      "kind": "herd",
+      "subject": "dry-season-locked",
+      "event_time": 20,
+      "received_at": 20,
+      "data": {
+        "herd": "A",
+        "holder": "HA",
+        "count": 2,
+        "tags": [
+          "TA1",
+          "TA2"
+        ]
+      }
+    },
+    {
+      "id": "synth-locked-herd-B",
+      "kind": "herd",
+      "subject": "dry-season-locked",
+      "event_time": 21,
+      "received_at": 21,
+      "data": {
+        "herd": "B",
+        "holder": "HB",
+        "count": 2,
+        "tags": [
+          "TB1",
+          "TB2"
+        ]
+      }
+    },
+    {
+      "id": "synth-locked-boundary-B-deny-Z2",
+      "kind": "boundary",
+      "subject": "dry-season-locked",
+      "event_time": 22,
+      "received_at": 22,
+      "data": {
+        "kind": "herd_deny",
+        "herd": "B",
+        "zone": "Z2",
+        "reason": "接种留观，乙群只可去Z1"
+      }
+    },
+    {
+      "id": "synth-locked-boundary-corridor",
+      "kind": "boundary",
+      "subject": "dry-season-locked",
+      "event_time": 23,
+      "received_at": 23,
+      "data": {
+        "kind": "corridor_exclusive",
+        "zones": [
+          "Z1",
+          "Z2"
+        ],
+        "reason": "两区之间通道不能同窗共享"
+      }
+    },
+    {
+      "id": "synth-locked-grass-Z1",
+      "kind": "vegetation_sample",
+      "subject": "dry-season-locked",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "zone": "Z1",
+        "grass": 0.8,
+        "sample": "SZ1"
+      }
+    },
+    {
+      "id": "synth-locked-grass-Z2",
+      "kind": "vegetation_sample",
+      "subject": "dry-season-locked",
+      "event_time": 31,
+      "received_at": 31,
+      "data": {
+        "zone": "Z2",
+        "grass": 0.8,
+        "sample": "SZ2"
+      }
+    },
+    {
+      "id": "synth-locked-cap-Z1",
+      "kind": "zone_capacity",
+      "subject": "dry-season-locked",
+      "event_time": 40,
+      "received_at": 40,
+      "data": {
+        "zone": "Z1",
+        "capacity": 4,
+        "unit": "animal_hours"
+      }
+    },
+    {
+      "id": "synth-locked-cap-Z2",
+      "kind": "zone_capacity",
+      "subject": "dry-season-locked",
+      "event_time": 41,
+      "received_at": 41,
+      "data": {
+        "zone": "Z2",
+        "capacity": 4,
+        "unit": "animal_hours"
+      }
+    },
+    {
+      "id": "synth-locked-booking-A",
+      "kind": "booking",
+      "subject": "dry-season-locked",
+      "event_time": 50,
+      "received_at": 50,
+      "data": {
+        "action": "book",
+        "herd": "A",
+        "holder": "HA",
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "zones": [
+          "Z1",
+          "Z2"
+        ]
+      }
+    },
+    {
+      "id": "synth-locked-booking-B",
+      "kind": "booking",
+      "subject": "dry-season-locked",
+      "event_time": 51,
+      "received_at": 51,
+      "data": {
+        "action": "book",
+        "herd": "B",
+        "holder": "HB",
+        "start": 1,
+        "end": 3,
+        "count": 2,
+        "zones": [
+          "Z1"
+        ]
+      }
+    }
+  ]
+}
