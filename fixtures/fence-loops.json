@@ -1,0 +1,133 @@
+{
+  "events": [
+    {
+      "id": "fence-north-topo-v1",
+      "kind": "fence_topology",
+      "subject": "fence-north",
+      "event_time": 10,
+      "received_at": 10,
+      "data": {
+        "revision": 1,
+        "note": "旧版拓扑误把 AC 回路登记为经过 X 区段",
+        "loops": {
+          "AB": [
+            "A",
+            "B"
+          ],
+          "BC": [
+            "B",
+            "C"
+          ],
+          "AC": [
+            "A",
+            "C",
+            "X"
+          ]
+        }
+      }
+    },
+    {
+      "id": "fence-north-topo-v2",
+      "kind": "fence_topology",
+      "subject": "fence-north",
+      "event_time": 20,
+      "received_at": 20,
+      "data": {
+        "revision": 2,
+        "note": "勘误：AC 回路只覆盖 A、C 两段",
+        "loops": {
+          "AB": [
+            "A",
+            "B"
+          ],
+          "BC": [
+            "B",
+            "C"
+          ],
+          "AC": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "id": "fence-north-alarm-phase1",
+      "kind": "fence_alarm",
+      "subject": "fence-north",
+      "event_time": 30,
+      "received_at": 30,
+      "data": {
+        "readings": [
+          {
+            "loop": "AB",
+            "alarm": true,
+            "self_check": true
+          },
+          {
+            "loop": "BC",
+            "alarm": true,
+            "self_check": true
+          },
+          {
+            "loop": "AC",
+            "alarm": false,
+            "self_check": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "fence-north-alarm-phase2",
+      "kind": "fence_alarm",
+      "subject": "fence-north",
+      "event_time": 40,
+      "received_at": 40,
+      "data": {
+        "readings": [
+          {
+            "loop": "AB",
+            "alarm": true,
+            "self_check": true
+          },
+          {
+            "loop": "BC",
+            "alarm": true,
+            "self_check": true
+          },
+          {
+            "loop": "AC",
+            "alarm": true,
+            "self_check": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "fence-north-retest-c",
+      "kind": "fence_retest",
+      "subject": "fence-north",
+      "event_time": 50,
+      "received_at": 50,
+      "data": {
+        "retest_id": "retest-c-0001",
+        "isolated": "C",
+        "branches": [
+          {
+            "sections": [
+              "A"
+            ],
+            "alarm": true
+          },
+          {
+            "sections": [
+              "B"
+            ],
+            "alarm": true
+          }
+        ],
+        "signature": "b37ebcab82a4eb2697c2ab695a4df169edc3fac10f6293e0aef934b429ee442f"
+      }
+    }
+  ]
+}
